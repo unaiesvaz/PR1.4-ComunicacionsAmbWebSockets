@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PR1.4-ComunicacionsAmbWebSockets</string>
+    <string name="chat_message_hint">Escribe un mensaje</string>
+    <string name="chat_send">Enviar</string>
 </resources>
