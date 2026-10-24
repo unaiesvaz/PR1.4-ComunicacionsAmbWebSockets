@@ -26,11 +26,12 @@ class MainActivity : AppCompatActivity() { // Ejecutar el servidor
         messagesView = findViewById(R.id.messagesView)
         messagesScroll = findViewById(R.id.messagesScroll)
         messageInput = findViewById(R.id.messageInput)
+        val username = intent.getStringExtra("username") //Recibimos el username de la otra vista
 
         findViewById<Button>(R.id.sendButton).setOnClickListener {
             val message = messageInput.text.toString().trim()
             if (message.isNotEmpty() && ::wsclient.isInitialized && wsclient.isOpen) {
-                wsclient.send(message)
+                wsclient.send(username + ": " + message)
                 messageInput.text.clear()
             } else if (message.isNotEmpty()) {
                 Toast.makeText(this, "No hay conexión con el servidor", Toast.LENGTH_SHORT).show()
