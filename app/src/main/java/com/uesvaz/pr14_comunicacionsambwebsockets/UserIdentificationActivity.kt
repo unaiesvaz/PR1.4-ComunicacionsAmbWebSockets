@@ -8,15 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 
 class UserIdentificationActivity : AppCompatActivity() {
 
-    private lateinit var usernameInput: EditText
-    private lateinit var continueButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_identification)
 
-        usernameInput = findViewById(R.id.usernameInput)
-        continueButton = findViewById(R.id.continueButton)
+        val usernameInput = findViewById<EditText>(R.id.usernameInput)
+        val continueButton = findViewById<Button>(R.id.continueButton)
 
         continueButton.setOnClickListener {
             val username = usernameInput.text.toString().trim()
@@ -24,9 +22,6 @@ class UserIdentificationActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("username", username)
             startActivity(intent) //Cambiamos la vista
-
-
-
 
         }
     }

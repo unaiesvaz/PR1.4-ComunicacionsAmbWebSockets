@@ -14,22 +14,19 @@ import java.net.URI
 class MainActivity : AppCompatActivity() { // Ejecutar el servidor
     //mvn exec:java "-Dexec.mainClass=com.uesvaz.servidor.ServidorWebSocket"
 
+    //lateint son las variables que declararemos mas tarde
     private lateinit var wsclient: MyWebSocketClient
-    private lateinit var messagesView: TextView
-    private lateinit var messagesScroll: ScrollView
-    private lateinit var messageInput: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        messagesView = findViewById(R.id.messagesView)
-        messagesScroll = findViewById(R.id.messagesScroll)
-        messageInput = findViewById(R.id.messageInput)
+        val messageInput = findViewById<EditText>(R.id.messageInput)
+
         val username = intent.getStringExtra("username") //Recibimos el username de la otra vista
 
         findViewById<Button>(R.id.sendButton).setOnClickListener {
-            val message = messageInput.text.toString().trim()
+            val message = messageInput.text.toString()
             if (message.isNotEmpty() && ::wsclient.isInitialized && wsclient.isOpen) {
                 wsclient.send(username + ": " + message)
                 messageInput.text.clear()
@@ -42,6 +39,10 @@ class MainActivity : AppCompatActivity() { // Ejecutar el servidor
     }
 
     private inner class MyWebSocketClient(uri: URI) : WebSocketClient(uri) {
+
+        val messagesView = findViewById<TextView>(R.id.messagesView)
+        val messagesScroll = findViewById<ScrollView>(R.id.messagesScroll)
+
         override fun onOpen(handshakedata: ServerHandshake?) {
             runOnUiThread {
                 messagesView.append("Conectado al servidor\n")
